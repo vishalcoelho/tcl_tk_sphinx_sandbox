@@ -1,27 +1,11 @@
-
-SRC := $(wildcard *.py) $(wildcard funcLog/*.py)
-TEST_SRC := $(wildcard test/*/test_*?.py)
-
 install:
 	pip install --upgrade pip &&\
 	pip install -r requirements.txt
 
-tests:
-	@echo "Running Tests using pytest"
-	@echo "=========================="
-	@echo "Testing: ${TEST_SRC}"
-	python -m pytest -vv --cov=funcLog ${TEST_SRC}
+TK_SUBDIRS := $(wildcard tk/*/.)
 
-format:
-	@echo "Formatting using black"
-	@echo "======================"
-	black ${SRC}
+tk: $(TK_SUBDIRS)
+	echo "Running make -C $^ $(filter-out $@, $(MAKECMDGOALS))"
+	$(MAKE) -C $^ $(filter-out $@, $(MAKECMDGOALS))
 
-lint:
-	@echo "Running lint"
-	@echo "============"
-	pylint --disable=R,C --ignore-patterns=${TEST_SRC} ${SRC}
-
-refactor: format lint
-
-all: install lint test format
+all: install tk

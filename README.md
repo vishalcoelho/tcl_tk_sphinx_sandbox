@@ -2,7 +2,9 @@
 - [Template for all Python Projects](#template-for-all-python-projects)
   - [Using GitHub Codespaces](#using-github-codespaces)
   - [Using Local VS Code](#using-local-vs-code)
-    - [Creating a Conda Environment within your Workspace](#creating-a-conda-environment-within-your-workspace)
+    - [Creating a Virtual Environment](#creating-a-virtual-environment)
+      - [VENV Environment](#venv-environment)
+      - [Conda Environment](#conda-environment)
     - [Setting up PyLint](#setting-up-pylint)
 - [Notes](#notes)
   - [Notes on Command Line Tools](#notes-on-command-line-tools)
@@ -57,7 +59,32 @@ This is a template repository for all of my Python projects. I use virtualenv to
   - if you are using named arguments, provide them as a tuple. For e.g.,
     "--type f" as "args": [("--type", " f")]
 
-### Creating a Conda Environment within your Workspace
+### Creating a Virtual Environment
+You have two choices
+- venv
+- Conda
+
+#### VENV Environment
+- Run
+    ```bash
+    python -m venv .venv
+    source .venv/Scripts/activate
+    ```
+- To deactivate
+    ```bash
+    deactivate
+    ```
+- Once activated, install the required packages
+    ```bash
+    pip install -r requirements.txt
+    ```
+  or, just run `make install`--it will do it for you. :memo: if it fails the first time, run it again.
+- If you do decide to install a new package, add it to the requirements.txt
+    ```bash
+    pip freeze > requirements.txt
+    ```
+
+#### Conda Environment
 - Create a .bash_profile (if one wasnt already created) with the following:
     ```bash
     # >>> conda initialize >>>
